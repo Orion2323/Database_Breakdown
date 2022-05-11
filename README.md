@@ -15,9 +15,11 @@ Each step and their results will appear on terminal as they execute. Assuming no
 
 - connect-to-database.js: file that holds main code for connecting and disconnecting from database.
 
+- index.js: file that holds code for routes to be executed in Insomnia.
+
 - database_db.sql: A SQL file used to verify that code in index.js works.
 
-- index.js: file that holds code for routes to be executed in Insomnia.
+- API Documentation: documentation for current routes on branch
 
 - package-lock.json/package.json: JSON file that holds all dependencies needed for current code.
 
