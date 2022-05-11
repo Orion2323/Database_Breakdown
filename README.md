@@ -3,6 +3,7 @@ The purpose of this repo is to breakdown the content of the Database Concepts cl
 Each branch represents the development of setting up and interacting with a database. 
 
 # To run program
+Before running program, verify that account data is correct in 'connect-to-database.js'
 Run the following command on the terminal
 ```
 node connect-to-database.js
