@@ -4,11 +4,11 @@ const util = require('util');
 const connectToDatabase = async () => {
     try {
         const DBConnection = mysql.createConnection({
-            host: 'name-of-host',
-            user: 'name-of-user',
+            host: 'localhost',
+            user: 'root',
             password: 'password',
             insecureAuth: true,
-            database: 'name-of-database'
+            database: 'db'
         });
 
         const DBCreateConnection = util.promisify(DBConnection.connect).bind(DBConnection);
