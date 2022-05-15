@@ -25,7 +25,7 @@ class Course {
     // method to return course by id
     async fetchCourseById(id) {
         // check if id is null
-        if (id != null || id.length != 0 || id != undefined) {
+        if (id == null || id.length == 0 || id == undefined) {
             return {
                 error : "Input an id"
             }
@@ -45,7 +45,7 @@ class Course {
     // method to return course by name
     async fetchCourseByName(name) {
         // check if name is null
-        if (name != null || name.length != 0 || name != undefined) {
+        if (name == null || name.length == 0 || name == undefined) {
             return {
                 error : "Input a name"
             }

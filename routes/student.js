@@ -48,7 +48,7 @@ router.get('/name/:name', async (req, res, next) => {
         // check for errors
         if (student.error == "Input an id") {
             res.status(400).json(student.error);
-        } else if (student.error == "Student id not found") {
+        } else if (student.error == "Student name not found") {
             res.status(404).json(student.error);
         } else {
             res.status(200).json(student);
@@ -67,7 +67,7 @@ router.post('/', async (req, res, next) => {
 
         // check for errors
         if (student.error == undefined || student.error == null) {
-            res.status(200).json(student);
+            res.status(201).json(student);
         } else {
             res.status(400).json(student.error);
         }

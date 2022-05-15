@@ -19,6 +19,7 @@ router.get('/', async (req, res, next) => {
     next();
 });
 
+// GET route to show course by id
 router.get('/id/:id', async (req, res, next) => {
     try {
         const course = await req.models.course.fetchCourseById(req.params.id);
@@ -38,9 +39,10 @@ router.get('/id/:id', async (req, res, next) => {
     next();
 });
 
-router.get('/name/:name', async (req, res, next) => {
+// GET route to show course by name
+router.get('/name', async (req, res, next) => {
     try {
-        const course = await req.models.course.fetchCourseByName(req.params.name);
+        const course = await req.models.course.fetchCourseByName(req.body.name);
 
         // check for errors
         if (course.error == "Input a name") {
@@ -67,7 +69,7 @@ router.post('/', async (req, res, next) => {
         if (course.error == "Input a name") {
             res.status(400).json(course.error);
         } else if (course.error == "Course name already exists") {
-            res.status(409).json(course.error);
+            res.status(400).json(course.error);
         } else {
             res.status(201).json(course);
         }
@@ -85,7 +87,7 @@ router.delete('/:id', async (req, res, next) => {
 
         // check for errors
         if (course) {
-            res.status(200).json(course);
+            res.status(204).json(course);
         } else {
             res.status(404).json(course.error);
         }
