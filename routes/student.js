@@ -41,9 +41,9 @@ router.get('/id/:id', async (req, res, next) => {
 });
 
 // GET route to show a student by name
-router.get('/name/:name', async (req, res, next) => {
+router.get('/name', async (req, res, next) => {
     try {
-        const student = await req.models.student.fetchStudentByName(req.params.name);
+        const student = await req.models.student.fetchStudentByName(req.body.name);
 
         // check for errors
         if (student.error == "Input an id") {
