@@ -1,25 +1,13 @@
-# *Database_Breakdown Repo*
-The purpose of this repo is to breakdown the content of the Database Concepts class CS 3330.
-Each branch represents the development of setting up and interacting with a database. 
+# *Database Breakdown Repo*
+## **Additions to this branch**
+The concept of middleware is implemented in this branch. Middleware acts as a bridge between an application's request and the database's response, making data management across systems more efficient.
 
-## **To run program**
-Before running program, verify that your Ubuntu account data is correct in 'connect-to-database.js'.
-Run the following command on the terminal
-```
-node index.js
-```
-Each step and their results will appear on terminal as they execute. Assuming no errors, the program will display the successful results of all steps and the overall route as they are executed on Insomnia.
+The models folder houses JavaScript files pertaining to a specific resource, where within each file there is code that communicates directly with a database.
 
-## **Routes**
-For executing routes in Insomnia: 
-```
-http://localhost:3000
-```
-The extensions for the specififc routes are found in the API Documentation.
+The routes folder houses Javascript files pertaining to a specific resource.
 
+Route responses now return with a status code to reflect whether route was executed correctly or not. Below are the lists of error codes commonly used:
 
-## **JSON Response Codes**
-Depending on whether the route is executed successfully or not, the response payload will also return a code that verifies its status.
 <details open> 
 <summary> 200's</summary>
 
@@ -46,8 +34,23 @@ Depending on whether the route is executed successfully or not, the response pay
 - 504: Timeout Error: The server took too long to respond after a certain time.<br>
 </details>
 
+## **To run program**
+Before running program, verify that your Ubuntu account data is correct in 'connect-to-database.js'.
+Run the following command on the terminal
+```
+node index.js
+```
+Each step and their results will appear on terminal as they execute. Assuming no errors, the program will display the successful results of all steps and the overall route as they are executed on Insomnia.
+
+## **Routes**
+For executing routes in Insomnia: 
+```
+http://localhost:3000
+```
+The extensions for the specififc routes are found in the API Documentation.
+
 ## **File Descriptions**
-- middleware: Software that assists in handling requests and responses between an application and database
+- middleware:
     - model-middelware.js: folder that contains code for inserting middleware within execution chain
 
 - models:
@@ -68,8 +71,7 @@ Depending on whether the route is executed successfully or not, the response pay
 
 - package-lock.json/package.json: JSON file that holds all dependencies needed for current code.
 
-## **Technologies/Tools Used**
-The results of this branch are based from a Windows machine. Set up and execution of project may differ for other Operating Systems.
+## **Technologies/Tools/Languages Used**
  - Ubuntu 20.0 LTS
  - Insomnia
  - Javascript
