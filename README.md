@@ -47,7 +47,7 @@ Depending on whether the route is executed successfully or not, the response pay
 </details>
 
 ## **File Descriptions**
-- middleware: 
+- middleware: Software that assists in handling requests and responses between an application and database
     - model-middelware.js: folder that contains code for inserting middleware within execution chain
 
 - models:
