@@ -15,7 +15,7 @@ For executing routes in Insomnia:
 ```
 http://localhost:3000
 ```
-The extension for the specififc routes are found in the API Documentation.
+The extensions for the specififc routes are found in the API Documentation PDF.
 
 ## File Descriptions
 - middleware: 
