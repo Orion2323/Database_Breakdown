@@ -61,7 +61,7 @@ router.get('/transcript',authenticateWithClaims("User"),async (req, res, next) =
 });
 
 // POST route to enroll in a course
-router.post('/newCourse',authenticateWithClaims("User"),async (req,res,next) => {
+router.post('/enroll',authenticateWithClaims("User"),async (req,res,next) => {
     try {
         const result = await enrollModels.createNewEnrollment(req.user.email,req.body.courseName);
 
@@ -85,7 +85,7 @@ router.delete('/dropCourse',authenticateWithClaims("User"),async (req,res,next) 
         if (result.error != undefined) {
             res.status(result.status).json(result.error);
         } else {
-            res.status(204);
+            res.status(204).json();
         }
     } catch (err) {
         res.status(500).json({message: err.toString()});
