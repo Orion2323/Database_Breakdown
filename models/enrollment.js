@@ -4,14 +4,14 @@ const courseModel = require('../models/course');
 const ENROLL_TABLE = 'enrollment';
 
 // method that creates a new enrollment
-const createNewEnrollment = async (userEmail,courseName) => {
+const createNewEnrollment = async (student_email,course_name) => {
     // check if userID and courseID is not empty 
-    if (userEmail== null || userEmail == undefined || userEmail.length == 0) {
+    if (student_email== null || student_email == undefined || student_email.length == 0) {
         return {
             status: 400,
             error: 'User email is required'
         }
-    } else if (courseName == null || courseName == undefined || courseName.length == 0) {
+    } else if (course_name == null || course_name == undefined || course_name.length == 0) {
         return {
             status: 400,
             error: 'Course name is required'
@@ -19,7 +19,7 @@ const createNewEnrollment = async (userEmail,courseName) => {
     }
 
     // check if course exists
-    const courseExists = await courseModel.findCourseByName(courseName);
+    const courseExists = await courseModel.findCourseByName(course_name);
     if (courseExists.length == 0) {
         return {
             status: 404,
@@ -28,7 +28,7 @@ const createNewEnrollment = async (userEmail,courseName) => {
     }
 
     // check if enrollment already exists
-    const ifExists = await findEnrollmentByUserIdAndCourseId(userEmail,courseName);
+    const ifExists = await findEnrollmentByUserIdAndCourseId(student_email,course_name);
     if (ifExists.length > 0) {
         return {
             status: 409,
@@ -37,23 +37,23 @@ const createNewEnrollment = async (userEmail,courseName) => {
     }
 
     // code executes if no errors have been found
-    const result = await knex(ENROLL_TABLE).insert({student_email: userEmail,course_name: courseName});
+    const result = await knex(ENROLL_TABLE).insert({student_email,course_name});
     return {
         enrollment_id: result[0].enrollment_id,
-        student_email: userEmail,
-        course_name: courseName
+        student_email,
+        course_name
     }
 }
 
 // method that checks if an enrollment exists
-const findEnrollmentByUserIdAndCourseId = async (userEmail, courseName) => {
+const findEnrollmentByUserIdAndCourseId = async (student_email,course_name) => {
     // check if userEmail and courseName is not empty
-    if (userEmail == null || userEmail == undefined || userEmail.length == 0) {
+    if (student_email == null || student_email == undefined || student_email.length == 0) {
         return {
             status: 400,
             error: 'User email is required'
         }
-    } else if (courseName == null || courseName == undefined || courseName.length == 0) {
+    } else if (course_name == null || course_name == undefined || course_name.length == 0) {
         return {
             status: 400,
             error: 'Course name is required'
@@ -61,14 +61,14 @@ const findEnrollmentByUserIdAndCourseId = async (userEmail, courseName) => {
     }
 
     // code executes if no errors have been found
-    const result = await knex(ENROLL_TABLE).where({student_email: userEmail, course_name: courseName});
+    const result = await knex(ENROLL_TABLE).where({student_email, course_name});
     return result;
 }
 
 // method to get all courses user enrolled in
-const fetchEnrolledCourses = async (userEmail) => {
+const fetchEnrolledCourses = async (student_email) => {
     // check if userEmail is not empty
-    if (userEmail == null || userEmail == undefined || userEmail.length == 0) {
+    if (student_email == null || student_email == undefined || student_email.length == 0) {
         return {
             status: 400,
             error: 'User email is required'
@@ -76,7 +76,7 @@ const fetchEnrolledCourses = async (userEmail) => {
     }
 
     // check if user has enrolled in any courses
-    const result = await knex(ENROLL_TABLE).where({student_email: userEmail});
+    const result = await knex(ENROLL_TABLE).where({student_email});
     if (result.length == 0) {
         return {
             status: 404,
@@ -88,14 +88,14 @@ const fetchEnrolledCourses = async (userEmail) => {
 }
 
 // method to delete an enrollment
-const dropCourse = async (userEmail,courseName) => {
+const dropCourse = async (student_email,course_name) => {
     // check if userEmail and courseName is not empty
-    if (userEmail == null || userEmail == undefined || userEmail.length == 0) {
+    if (student_email == null || student_email == undefined || student_email.length == 0) {
         return {
             status: 400,
             error: 'User email is required'
         }
-    } else if (courseName == null || courseName == undefined || courseName.length == 0) {
+    } else if (course_name == null || course_name == undefined || course_name.length == 0) {
         return {
             status: 400,
             error: 'Course name is required'
@@ -103,7 +103,7 @@ const dropCourse = async (userEmail,courseName) => {
     }
 
     // check if course exists
-    const courseExists = await courseModel.findCourseByName(courseName);
+    const courseExists = await courseModel.findCourseByName(course_name);
     if (courseExists.length == 0) {
         return {
             status: 404,
@@ -112,7 +112,7 @@ const dropCourse = async (userEmail,courseName) => {
     }
 
     // check if enrollment exists
-    const enrollExists = await knex(ENROLL_TABLE).where({student_email:userEmail,course_name: courseName});
+    const enrollExists = await knex(ENROLL_TABLE).where({student_email,course_name});
     if (enrollExists.length == 0) {
         return {
             status: 404,
@@ -121,7 +121,7 @@ const dropCourse = async (userEmail,courseName) => {
     }
 
     // code executes if no errors have been found
-    const result = await knex(ENROLL_TABLE).where({student_email: userEmail,course_name: courseName}).del();
+    const result = await knex(ENROLL_TABLE).where({student_email,course_name}).del();
     return result;
 }
 

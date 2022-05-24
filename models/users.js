@@ -1,7 +1,7 @@
 const knex = require('../database/knex');
 const bycrypt = require('bcrypt');
 
-const USER_TABLE = 'user';
+const USER_TABLE = 'student_user';
 
 // method that creates a new user in database
 const createNewUser = async (name,email,password) => {
