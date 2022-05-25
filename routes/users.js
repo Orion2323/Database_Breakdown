@@ -2,18 +2,19 @@ const express = require('express');
 const {authenticateWithClaims} = require('../middleware/auth.js');
 const router = express.Router();
 
+const UserController = require('../controllers/users');
+const CourseController = require('../controllers/course');
+
 const enrollModels = require('../models/enrollment');
-const courseModels = require('../models/course');
 
 // GET route to get user info
 router.get('/self',authenticateWithClaims("User"),async (req, res, next) => {
     try {
-        const result = await req.models.user.findUserByEmail(req.user.email);
+        const result = await UserController.findUser(req.user.email);
 
         // check for errors
         if (result.error == undefined) {
-            const altResult = {name: result[0].name, email: result[0].email};
-            res.status(200).json(altResult);
+            res.status(200).json(result);
         } else {
             res.status(result.status).json(result.error);
         }
@@ -25,9 +26,9 @@ router.get('/self',authenticateWithClaims("User"),async (req, res, next) => {
 });
 
 // GET route fetches all available courses
-router.get('/allCourses',authenticateWithClaims("User"),async (req, res, next) => {
+router.get('/yourCourses',authenticateWithClaims("User"), async (req, res, next) => {
     try {
-        const result = await courseModels.fetchAllCourses();
+        const result = await CourseController.fetchYourCourses(req.user.email);
 
         // check for errors
         if (result.error == undefined) {
@@ -43,9 +44,9 @@ router.get('/allCourses',authenticateWithClaims("User"),async (req, res, next) =
 });
 
 // GET route fetches all courses enrolled by user
-router.get('/transcript',authenticateWithClaims("User"),async (req, res, next) => {
+router.get('/courseEnrollment',authenticateWithClaims("User"),async (req, res, next) => {
     try {
-        const result = await enrollModels.fetchEnrolledCourses(req.user.email);
+        //const result = await enrollModels.fetchEnrolledCourses(req.user.email);
 
         // check for errors
         if (result.error == undefined) {
@@ -61,9 +62,9 @@ router.get('/transcript',authenticateWithClaims("User"),async (req, res, next) =
 });
 
 // POST route to enroll in a course
-router.post('/enroll',authenticateWithClaims("User"),async (req,res,next) => {
+router.post('/createCourse',authenticateWithClaims("User"),async (req,res,next) => {
     try {
-        const result = await enrollModels.createNewEnrollment(req.user.email,req.body.courseName);
+        const result = await CourseController.createNewCourse(req.body.courseName,req.user.email);
 
         if (result.error != undefined) {
             res.status(result.status).json(result.error);
@@ -80,7 +81,7 @@ router.post('/enroll',authenticateWithClaims("User"),async (req,res,next) => {
 // DELETE route to drop a course
 router.delete('/dropCourse',authenticateWithClaims("User"),async (req,res,next) => {
     try {
-        const result = await enrollModels.dropCourse(req.user.email,req.body.courseName);
+        const result = await CourseController.dropCourse(req.body.courseName,req.user.email);
 
         if (result.error != undefined) {
             res.status(result.status).json(result.error);

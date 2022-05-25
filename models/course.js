@@ -5,33 +5,37 @@ const COURSE_TABLE = "course";
 // method to get all courses
 const fetchAllCourses = async () => {
     const result = await knex(COURSE_TABLE);
+    return result;
+}
 
-    // check if there are any courses
-    if (result.length == 0) {
-        return {
-            status: 404,
-            error: "No courses found"
-        }
-    }
-
+// method to fetch courses assigned to professor
+const fetchYourCourses = async (prof_email) => {
+    const result = await knex(COURSE_TABLE).where({prof_email});
     return result;
 }
 
 // method to check if course exists
-const findCourseByName = async (name) => {
-    // check if courseName is not empty
-    if (name == null || name == undefined || name.length == 0) {
-        return {
-            status: 400,
-            error: "Course name is required"
-        }
-    }
+const findCourseByName = async (course_name) => {
+    const result = await knex(COURSE_TABLE).where({course_name});
+    return result;
+}
 
-    const result = await knex(COURSE_TABLE).where({name});
+// method to create new course
+const createNewCourse = async (course_name, prof_email) => {
+    const result = await knex(COURSE_TABLE).insert({course_name, prof_email});
+    return result;
+}
+
+// method to delete course
+const dropCourse = async (course_name, prof_email) => {
+    const result = await knex(COURSE_TABLE).where({course_name, prof_email}).del();
     return result;
 }
 
 module.exports = {
     fetchAllCourses,
-    findCourseByName
+    fetchYourCourses,
+    findCourseByName,
+    createNewCourse,
+    dropCourse
 }
