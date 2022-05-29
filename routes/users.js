@@ -4,8 +4,7 @@ const router = express.Router();
 
 const UserController = require('../controllers/users');
 const CourseController = require('../controllers/course');
-
-const enrollModels = require('../models/enrollment');
+const EnrollmentController = require('../controllers/enrollment');
 
 // GET route to get user info
 router.get('/self',authenticateWithClaims("User"),async (req, res, next) => {
@@ -46,7 +45,7 @@ router.get('/yourCourses',authenticateWithClaims("User"), async (req, res, next)
 // GET route fetches all courses enrolled by user
 router.get('/courseEnrollment',authenticateWithClaims("User"),async (req, res, next) => {
     try {
-        //const result = await enrollModels.fetchEnrolledCourses(req.user.email);
+        const result = await EnrollmentController.fetchCourseStudents(req.body.courseName);
 
         // check for errors
         if (result.error == undefined) {
