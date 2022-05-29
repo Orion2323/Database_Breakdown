@@ -20,6 +20,7 @@ const fetchYourCourses = async(email) => {
         }
     }
 
+    // fetch all courses assigned to user
     const result = await CourseModel.fetchYourCourses(email);
     if (result.length == 0) {
         return {
