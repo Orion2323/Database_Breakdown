@@ -18,16 +18,16 @@ const fetchAllCourses = async () => {
 }
 
 // method to check if course exists
-const findCourseByName = async (name) => {
+const findCourseByName = async (course_name) => {
     // check if courseName is not empty
-    if (name == null || name == undefined || name.length == 0) {
+    if (course_name == null || course_name == undefined || course_name.length == 0) {
         return {
             status: 400,
             error: "Course name is required"
         }
     }
 
-    const result = await knex(COURSE_TABLE).where({name});
+    const result = await knex(COURSE_TABLE).where({course_name});
     return result;
 }
 
