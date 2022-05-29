@@ -65,6 +65,7 @@ router.post('/enroll',authenticateWithClaims("User"),async (req,res,next) => {
     try {
         const result = await enrollModels.createNewEnrollment(req.user.email,req.body.courseName);
 
+        // check for errors
         if (result.error != undefined) {
             res.status(result.status).json(result.error);
         } else {
