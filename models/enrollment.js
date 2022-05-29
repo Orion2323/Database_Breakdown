@@ -37,10 +37,11 @@ const createNewEnrollment = async (student_email,course_name) => {
     }
 
     // code executes if no errors have been found
-    const result = await knex(ENROLL_TABLE).insert({student_email,course_name});
+    const result = await knex(ENROLL_TABLE).insert({student_email,professor_email: courseExists[0].prof_email,course_name});
     return {
-        enrollment_id: result[0].enrollment_id,
+        enrollment_id: result[0],
         student_email,
+        professor_email: courseExists[0].prof_email,
         course_name
     }
 }
@@ -61,7 +62,7 @@ const findEnrollmentByUserIdAndCourseId = async (student_email,course_name) => {
     }
 
     // code executes if no errors have been found
-    const result = await knex(ENROLL_TABLE).where({student_email, course_name});
+    const result = await knex(ENROLL_TABLE).where({student_email,course_name});
     return result;
 }
 
