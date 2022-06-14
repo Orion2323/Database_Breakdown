@@ -12,6 +12,10 @@ module.exports = {
             password: 'password',
             insecureAuth: true,
             database: 'newDB'
+        },
+
+        seeds: {
+            directory: './seeds'
         }
     }
 };
