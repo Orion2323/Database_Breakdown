@@ -1,0 +1,24 @@
+{
+  "name": "chance",
+  "version": "1.0.0",
+  "description": "The purpose of this repo is to breakdown the content of the Database Concepts class CS 3330.\r Each branch represents the development of setting up and interacting with a database.",
+  "main": "connect-to-database.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orion2323/Database_Breakdown.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Orion2323/Database_Breakdown/issues"
+  },
+  "homepage": "https://github.com/Orion2323/Database_Breakdown#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
+  }
+}
